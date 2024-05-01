@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
-class RecipeController extends Controller
+class RecipeAddController extends Controller
 {
     public function index()
     {
@@ -26,23 +26,19 @@ class RecipeController extends Controller
         ]);
         $path=$request->file('recipe_photo')->store('uploads', 'public');
         DB::table('photo')->insert([
-            'photo' => $path,
+            'path' => $path,
         ]);
         DB::table('recipes')->insert([
             'name' => request('name'),
             'ingredients' => request('ingredients'),
             'cooking_steps' => request('cooking_steps'),
             'subcategories_id' =>request('subcategory'),
+            'cooking_time' => request('cooking_time'),
             'users_id' => '1',
             'created_at' => now(),
             'photo_id' => DB::table('photo')->max('id'),
         ]);
-        return view('welcome',['path'=>$path]);
-    }
-    public function show()
-    {
-        $photo = DB::table('photo')->get();
-        return view('recipe_list', compact('photo'));
+        return view('recipe_list');
     }
 }
 

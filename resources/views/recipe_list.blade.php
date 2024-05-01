@@ -4,23 +4,158 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel</title>
-</head>
-<body>
-<table bgcolor="" #e8e3d4 width="" 100%>
-    <tr align=center>
-        <td bgcolor=#ccc0b3>Меню</td>
-    </tr>
-    <tr align=center>
-        <td bgcolor=#ebebeb>
-            @foreach($photo as $ph)
-                <p>{{ $ph-> }}</p>
-            @endforeach
-        </td>
-    </tr>
-    <tr align=center>
-        <td bgcolor=#ccc0b3>Подвал сайта</td>
-    </tr>
-</table>
-</body>
+    <style>
+        html {
+            overflow: scroll;
+        }
+        * {box-sizing: border-box;}
+        body {
+            font-family: algerian, serif;
+            font-size: 16px;
+            background-image: url('/storage/app/public/uploads/background.jpg');
+        }
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding: 20px 10px;
+        }
+        header a {
+            color: #212121;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 4px;
+        }
+        nav, .wrap-logo{
+            display: flex;
+            align-items: center;
+        }
+        .form_search {
+            position: relative;
+            width: 500px;
+            margin: 0 auto;
+        }
+        input, button, select,textarea {
+            border: 1px solid #BDCDDD;
+            background-color: #ffffff;
+        }
+        .search {
+            border-radius: 15px;
+            margin-top: 9px;
+            width: 100%;
+            height: 30px;
+            padding-left: 15px;
+        }
+        .but_search {
+            height: 26px;
+            width: 26px;
+            position: absolute;
+            top: 11px;
+            right: 3px;
+            border-radius: 15px;
+            background: #BDCDDD;
+            cursor: pointer;
+            content: "!";
+        }
+        .but_search:before {
+            color: #BDCDDD;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .wrapper {
+            display: flex;
+            width:850px;
+            height:200px;
+            flex-wrap: wrap;
+        }
+        .first {
+            width: 49%;
+            height: 140px;
+            order: 1;
+        }
+        .second {
+            width: 49%;
+            height: 140px;
+            order: 2;
+        }
+        .third {
+            width: 49%;
+            height: 45px;
+            order: 3;
+        }
+        .fourth {
+            width: 49%;
+            height: 45px;
+            order: 4;
+        }
+        .input {
+            width: 95%;
+            height: 95%;
+        }
+        .steps{
+            width: 95.5%;
+            height:200px;
+        }
+        .time{
+            width: 46.5%;
+            height:20px;
+            margin-bottom: 10px;
+        }
+        li {
+            list-style-type: none;
+        }
+        li:before {
+            content: "! ";
+            color:red;
+        }
+        .form {
+            background: #ffffff;
+            margin-top: 30px;
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .reg{
+            margin: 0 40%;
+            font-size: 20px;
+            position: relative;
+        }
+        .btn {
+            display: block;
+            width: 73%;
+            padding: 8px;
+            margin: 30px 115px 50px;
+            border-radius: 15px;
+            background-color: #F7F0C6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 0;
+            font-family: algerian, serif;
+            font-size: 16px;
+        }
+    </style>
+    </head>
+    <body>
+    <header>
+        <nav>
+            <a href="#profile">Профиль</a>
+            <a href="#categpory">Категории</a>
+            <a href="#main">Главная</a>
+        </nav>
+            <form action="" method="" class="form_search">
+                <input class="search" name="search" placeholder="Поиск..." type="search">
+                <button class="but_search" type="submit"></button>
+            </form>
+            <div class="wrap-logo">
+                <a>Логотип сайта</a>
+            </div>
+    </header>
+        @foreach($photos as $photo)
+            @isset($photo->path)
+                <img src="{{ asset('storage/' . $photo->path) }}">
+            @endisset
+        @endforeach
+    </body>
 </html>
 

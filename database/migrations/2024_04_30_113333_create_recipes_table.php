@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->LONGTEXT('ingredients');
             $table->LONGTEXT('cooking_steps');
-            $table->timestamp('cooking_time')->default('2024-05-01 10:00:00');
+            $table->time('cooking_time');
             $table->bigInteger('subcategories_id')->unsigned();
             $table->foreign('subcategories_id')->references('id')->on('subcategories');
             $table->bigInteger('users_id')->unsigned();
