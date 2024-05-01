@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('photo', function (Blueprint $table) {
             $table->id();
-            $table->text('photo')->nullable();
-            $table->string('alt');
+            $table->text('photo');
+            $table->string('alt')->nullable();;
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('categories_id')->unsigned();
             $table->foreign('categories_id')->references('id')->on('categories');
-            $table->boolean('activity');
+            $table->boolean('activity')->default(true);
             $table->timestamps();
         });
     }

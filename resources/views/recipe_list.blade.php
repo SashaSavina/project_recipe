@@ -12,8 +12,8 @@
     </tr>
     <tr align=center>
         <td bgcolor=#ebebeb>
-            @foreach($subcategories as $subcategory)
-                <p>{{ $subcategory->name }}</p>
+            @foreach($photo as $ph)
+                <p>{{ $ph-> }}</p>
             @endforeach
         </td>
     </tr>

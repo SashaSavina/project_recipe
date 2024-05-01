@@ -12,7 +12,7 @@
         body {
             font-family: algerian, serif;
             font-size: 16px;
-            background-image: url('/public/storage/photo/background.jpg');
+            background-image: url('/storage/app/public/uploads/background.jpg');
         }
         header {
             display: flex;
@@ -153,7 +153,7 @@
 </header>
 
 <div>
-    <form class="form" action="/add/recipe" method="POST">
+    <form enctype="multipart/form-data" class="form" action="/add/recipe" method="POST">
         @csrf
         <div class="reg">Ваш новый рецепт:</div>
         <ul>
@@ -163,7 +163,7 @@
         </ul>
         <div class="wrapper">
             <div class="first">
-                <input name="photo" class="input" type="file" placeholder="Добавьте фото рецепта">
+                <input name="recipe_photo" class="input" type="file" placeholder="Добавьте фото рецепта">
             </div>
             <div class="second">
                 <textarea name="ingredients" class="input" placeholder="Добавьте ингридиенты"></textarea>

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('ingredients');
-            $table->text('cooking_steps');
+            $table->LONGTEXT('ingredients');
+            $table->LONGTEXT('cooking_steps');
             $table->timestamp('cooking_time')->default('2024-05-01 10:00:00');
             $table->bigInteger('subcategories_id')->unsigned();
             $table->foreign('subcategories_id')->references('id')->on('subcategories');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('likes_counter')->default(0);
             $table->bigInteger('photo_id')->nullable()->unsigned();
             $table->foreign('photo_id')->references('id')->on('photo');
-            $table->boolean('activity')->default(1);
+            $table->boolean('activity')->default(true);
             $table->timestamps();
         });
     }

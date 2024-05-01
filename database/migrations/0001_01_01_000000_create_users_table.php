@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('password');
             $table->text('photo')->nullable();
             $table->string('user_role')->nullable();;
-            $table->boolean('activity')->default(1);
+            $table->boolean('activity')->default(true);
             $table->timestamps();
         });
     }
