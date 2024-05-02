@@ -38,7 +38,7 @@ class RecipeAddController extends Controller
             'created_at' => now(),
             'photo_id' => DB::table('photo')->max('id'),
         ]);
-        return view('recipe_list');
+        return redirect('/show/recipe');
     }
 }
 

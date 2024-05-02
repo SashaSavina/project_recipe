@@ -12,7 +12,7 @@ Route::post('/registration', [\App\Http\Controllers\UserController::class, 'save
 Route::get('/authenticate', function () {return view('entrance');});
 Route::post('/authenticate', [\App\Http\Controllers\LoginController::class, 'authenticate']);
 
-Route::get('/add/recipe', [\App\Http\Controllers\RecipeAddController::class, 'index']);
+Route::get('/add/recipe', [\App\Http\Controllers\RecipeAddController::class, 'index'])->middleware('auth');
 Route::post('/add/recipe', [\App\Http\Controllers\RecipeAddController::class,'save']);
 
 Route::get('/show/recipe', [\App\Http\Controllers\RecipeShowController::class, 'show']);

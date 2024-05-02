@@ -12,7 +12,6 @@
         body {
             font-family: algerian, serif;
             font-size: 16px;
-            background-image: url('/storage/app/public/uploads/background.jpg');
         }
         header {
             display: flex;
@@ -134,6 +133,34 @@
             font-family: algerian, serif;
             font-size: 16px;
         }
+        .input-file span {
+            position: relative;
+            border: 1px solid #BDCDDD;
+            display: inline-block;
+            font-size: 14px;
+            vertical-align: middle;
+            color: rgb(255 255 255);
+            text-align: center;
+            border-radius: 4px;
+            background-color: #BDCDDD;
+            line-height: 22px;
+            height: 40px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            margin: 0;
+            transition: background-color 0.2s;
+        }
+        .input-file input[type=file] {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            display: block;
+            width: 0;
+            height: 0;
+        }
+        .input-file:hover span {
+            background-color: #A6CAF0;
+        }
     </style>
 </head>
 <body scroll="no">
@@ -163,7 +190,10 @@
         </ul>
         <div class="wrapper">
             <div class="first">
-                <input name="recipe_photo" class="input" type="file" placeholder="Добавьте фото рецепта">
+                <label class="input-file">
+                    <input type="file" name="recipe_photo">
+                    <span>Выберите файл</span>
+                </label>
             </div>
             <div class="second">
                 <textarea name="ingredients" class="input" placeholder="Добавьте ингридиенты"></textarea>

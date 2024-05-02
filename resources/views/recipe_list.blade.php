@@ -8,11 +8,12 @@
         html {
             overflow: scroll;
         }
-        * {box-sizing: border-box;}
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: algerian, serif;
             font-size: 16px;
-            background-image: url('/storage/app/public/uploads/background.jpg');
         }
         header {
             display: flex;
@@ -29,7 +30,7 @@
             font-size: 18px;
             border-radius: 4px;
         }
-        nav, .wrap-logo{
+        nav, .wrap-logo {
             display: flex;
             align-items: center;
         }
@@ -38,7 +39,7 @@
             width: 500px;
             margin: 0 auto;
         }
-        input, button, select,textarea {
+        input, button, select {
             border: 1px solid #BDCDDD;
             background-color: #ffffff;
         }
@@ -65,62 +66,15 @@
             font-size: 20px;
             font-weight: bold;
         }
-        .wrapper {
-            display: flex;
-            width:850px;
-            height:200px;
-            flex-wrap: wrap;
-        }
-        .first {
-            width: 49%;
-            height: 140px;
-            order: 1;
-        }
-        .second {
-            width: 49%;
-            height: 140px;
-            order: 2;
-        }
-        .third {
-            width: 49%;
-            height: 45px;
-            order: 3;
-        }
-        .fourth {
-            width: 49%;
-            height: 45px;
-            order: 4;
-        }
         .input {
             width: 95%;
             height: 95%;
         }
-        .steps{
-            width: 95.5%;
-            height:200px;
-        }
-        .time{
-            width: 46.5%;
-            height:20px;
-            margin-bottom: 10px;
-        }
-        li {
-            list-style-type: none;
-        }
-        li:before {
-            content: "! ";
-            color:red;
-        }
-        .form {
-            background: #ffffff;
-            margin-top: 30px;
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .reg{
-            margin: 0 40%;
-            font-size: 20px;
-            position: relative;
+        img{
+            width: 265px;
+            height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
         }
         .btn {
             display: block;
@@ -134,28 +88,58 @@
             font-family: algerian, serif;
             font-size: 16px;
         }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 70px;
+            margin-left: 80px;
+            margin-right: 80px;
+        }
+        .item {
+            flex-basis: 33%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 70px;
+        }
+        .rec_name{
+            width: 250px;
+            font-size: 24px;
+        }
     </style>
-    </head>
-    <body>
-    <header>
-        <nav>
-            <a href="#profile">Профиль</a>
-            <a href="#categpory">Категории</a>
-            <a href="#main">Главная</a>
-        </nav>
-            <form action="" method="" class="form_search">
-                <input class="search" name="search" placeholder="Поиск..." type="search">
-                <button class="but_search" type="submit"></button>
-            </form>
-            <div class="wrap-logo">
-                <a>Логотип сайта</a>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="#profile">Профиль</a>
+        <a href="#categpory">Категории</a>
+        <a href="#main">Главная</a>
+    </nav>
+    <form action="" method="" class="form_search">
+        <input class="search" name="search" placeholder="Поиск..." type="search">
+        <button class="but_search" type="submit"></button>
+    </form>
+    <div class="wrap-logo">
+        <a>Логотип сайта</a>
+    </div>
+</header>
+    <div class="container">
+        @foreach($recipes as $recipe)
+            <div class="item">
+                <div class="item-box">
+                    @foreach($photos as $photo)
+                        @if($photo->id==$recipe->photo_id)
+                            @isset($photo->path)
+                                <img src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                            @endisset
+                        @endif
+                    @endforeach
+                    <div class="rec_name">
+                        {{ $recipe->name }}
+                    </div>
+                </div>
             </div>
-    </header>
-        @foreach($photos as $photo)
-            @isset($photo->path)
-                <img src="{{ asset('storage/' . $photo->path) }}">
-            @endisset
         @endforeach
-    </body>
+    </div>
+</body>
 </html>
 

@@ -25,6 +25,7 @@ class UserController extends Controller
             'email' => request('email'),
             'phone_number' => request('phone_number'),
             'password' => bcrypt(request('password')),
+            'created_at' => now(),
         ]);
         return redirect('/');
     }
