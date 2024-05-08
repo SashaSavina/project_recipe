@@ -15,7 +15,6 @@
             body {
                 font-family: algerian, serif;
                 font-size: 16px;
-                background-image: url('/public/storage/photo/background.jpg');
             }
             * {
                 box-sizing: border-box;

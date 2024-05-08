@@ -14,6 +14,7 @@
         body {
             font-family: algerian, serif;
             font-size: 16px;
+            background: #E8EFF8;
         }
         header {
             display: flex;
@@ -89,21 +90,33 @@
             font-size: 16px;
         }
         .container {
+            background-color: #ffffff;
+            border-radius: 15px;
             display: flex;
             flex-wrap: wrap;
-            margin-top: 70px;
-            margin-left: 80px;
-            margin-right: 80px;
+            margin: 70px 180px;
         }
-        .item {
-            flex-basis: 33%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 70px;
+        .headline{
+            font-size: 22px;
+        }
+        td{
+            padding: 10px;
+        }
+        .edit{
+            border: 1px solid #BDCDDD;
+            border-radius: 15px;
+            padding: 0 3px 0 7px ;
+            margin-top: -29%;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .td_text{
         }
         .rec_name{
-            width: 250px;
-            font-size: 24px;
+            font-size: 22px;
+        }
+        .empty{
+            margin-left: -20%;
         }
     </style>
 </head>
@@ -114,7 +127,7 @@
         <a href="#categpory">Категории</a>
         <a href="/show/recipes">Главная</a>
     </nav>
-    <form action="/show/recipes/search" method="get" class="form_search">
+    <form action="" method="" class="form_search">
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
@@ -122,10 +135,11 @@
         <a>Логотип сайта</a>
     </div>
 </header>
-    <div class="container">
-        @foreach($recipes as $recipe)
-            <div class="item">
-                <div class="item-box">
+<div class="container">
+    <table>
+            @foreach($recipes as $recipe)
+            <tr>
+                <td rowspan="2">
                     @foreach($photos as $photo)
                         @if($photo->id==$recipe->photo_id)
                             @isset($photo->path)
@@ -133,13 +147,49 @@
                             @endisset
                         @endif
                     @endforeach
-                    <div class="rec_name">
-                        <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+                </td>
+                <td>
+                    <div class="td_text">
+                        @foreach($subcategories as $subcategory)
+                            @if($subcategory->id==$recipe->subcategories_id)
+                                <p class="headline">Категория: {{$subcategory->name}}</p>
+                            @endif
+                        @endforeach
                     </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
+                    <div class="td_text">
+                        Время приготовления: {{$recipe->cooking_time}}
+                    </div>
+                </td>
+                <td>
+                    @if($recipe->users_id==Auth::id())
+                        <div class="edit">
+                            <a href="{{ route('recipes.update', $recipe->id) }}" ><p>Редактировать рецепт</p></a>
+                        </div>
+                    @else
+                        <div class="empty"></div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="td_text">
+                        <p class="headline">Ингридиенты:<br></p><p>{{$recipe->ingredients}}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr><td class="rec_name" colspan="3">{{$recipe->name}}</td></tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p class="headline">Шаги приготовления:<br></p>
+                    <p>{{$recipe->cooking_steps}}</p>
+                </td>
+            </tr>
+            @endforeach
+    </table>
+</div>
 </body>
 </html>
 

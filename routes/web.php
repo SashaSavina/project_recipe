@@ -15,8 +15,13 @@ Route::post('/authenticate', [\App\Http\Controllers\LoginController::class, 'aut
 Route::get('/add/recipe', [\App\Http\Controllers\RecipeAddController::class, 'index'])->middleware('auth');
 Route::post('/add/recipe', [\App\Http\Controllers\RecipeAddController::class,'save']);
 
-Route::get('/show/recipe', [\App\Http\Controllers\RecipeShowController::class, 'show']);
+Route::get('/show/recipes', [\App\Http\Controllers\RecipesShowController::class, 'show']);
+Route::get('/show/recipes/search', [\App\Http\Controllers\RecipesShowController::class, 'search']);
 
+Route::get('/show/recipe{id}', [\App\Http\Controllers\RecipeShowController::class, 'show']);
+
+Route::get('/edit/recipe{id}', [\App\Http\Controllers\RecipeEditController::class, 'index'])->name('edit.recipe')->middleware('auth');;
+Route::put('/edit/recipe{id}', [\App\Http\Controllers\RecipeEditController::class, 'edit'])->name('recipes.update');
 
 
 

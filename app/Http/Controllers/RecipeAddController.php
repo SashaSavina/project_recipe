@@ -34,7 +34,7 @@ class RecipeAddController extends Controller
             'cooking_steps' => request('cooking_steps'),
             'subcategories_id' =>request('subcategory'),
             'cooking_time' => request('cooking_time'),
-            'users_id' => '1',
+            'users_id' => Auth::id(),
             'created_at' => now(),
             'photo_id' => DB::table('photo')->max('id'),
         ]);

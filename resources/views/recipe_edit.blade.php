@@ -69,6 +69,7 @@
             width:850px;
             height:200px;
             flex-wrap: wrap;
+            margin-top: 50px;
         }
         .first {
             width: 49%;
@@ -117,7 +118,7 @@
             transform: translate(-50%, -50%);
         }
         .reg{
-            margin: 0 40%;
+            margin: 30px 35%;
             font-size: 20px;
             position: relative;
         }
@@ -133,17 +134,21 @@
             font-family: algerian, serif;
             font-size: 16px;
         }
+        img{
+            height: 130px;
+            width: 130px;
+        }
         .input-file span {
             position: relative;
+            bottom: 107px;
+            left: 20px;
             border: 1px solid #BDCDDD;
-            display: inline-block;
             font-size: 14px;
             vertical-align: middle;
             color: rgb(255 255 255);
             text-align: center;
             border-radius: 4px;
             background-color: #BDCDDD;
-            line-height: 22px;
             height: 40px;
             padding: 10px 20px;
             box-sizing: border-box;
@@ -180,10 +185,11 @@
 </header>
 
 <div>
-    <form enctype="multipart/form-data" class="form" action="/add/recipe" method="POST">
+        @foreach($recipes as $recipe)
+        <form enctype="multipart/form-data" class="form" action="/edit/recipe{{$recipe->id}}" method="POST">
         @csrf
-        <input type="hidden" name="users_id" value="{{ Auth::id() }}">
-        <div class="reg">Ваш новый рецепт:</div>
+        @method('PUT')
+            <div class="reg">Отредактируйте ваш рецепт:</div>
         <ul>
             @foreach($errors->all() as $message)
                 <li>{{$message}}</li>
@@ -193,18 +199,25 @@
             <div class="first">
                 <label class="input-file">
                     <input type="file" name="recipe_photo">
+                    @foreach($photos as $photo)
+                        @if($photo->id==$recipe->photo_id)
+                            @isset($photo->path)
+                                <img src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                            @endisset
+                        @endif
+                    @endforeach
                     <span>Выберите файл</span>
                 </label>
             </div>
             <div class="second">
-                <textarea name="ingredients" class="input" placeholder="Добавьте ингридиенты"></textarea>
+                <textarea name="ingredients" class="input">{{$recipe->ingredients}}</textarea>
             </div>
             <div class="third">
-                <textarea name="name" class="input" placeholder="Добавьте название"></textarea>
+                <textarea name="name" class="input" placeholder="Редактировать название">{{$recipe->name}}</textarea>
             </div>
             <div class="fourth">
                 <select name="subcategory" class="input" >
-                    <option>Выберите категории</option>
+                    <option>Изменить категории</option>
                     @foreach($subcategories as $subcategory)
                         <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                     @endforeach
@@ -213,13 +226,14 @@
         </div>
         <div>
             <div>
-                <input name="cooking_time" class="time" type="time" placeholder="Добавьте время приготовления">
+                <input name="cooking_time" class="time" type="time" placeholder="Изменить время приготовления" value="{{ $recipe->cooking_time }}">
             </div>
             <div>
-                <textarea name="cooking_steps" class="steps" placeholder="Добавьте шаги приготовления"></textarea>
+                <textarea name="cooking_steps" class="steps" placeholder="Редактировать шаги приготовления">{{$recipe->cooking_steps}}</textarea>
             </div>
         </div>
         <button class="btn" type="submit">Сохранить</button>
+        @endforeach
     </form>
 </div>
 </body>
