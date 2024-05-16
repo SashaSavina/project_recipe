@@ -14,6 +14,7 @@
         body {
             font-family: algerian, serif;
             font-size: 16px;
+            background: #E8EFF8;
         }
         header {
             display: flex;
@@ -70,7 +71,7 @@
             width: 95%;
             height: 95%;
         }
-        img{
+        .big_img{
             width: 265px;
             height: 300px;
             border-radius: 15px;
@@ -93,24 +94,33 @@
             flex-wrap: wrap;
             margin-top: 70px;
             margin-left: 80px;
+            background-color: #ffffff;
             margin-right: 80px;
+            border-radius: 15px;
         }
         .item {
             flex-basis: 33%;
             display: flex;
             justify-content: center;
-            margin-bottom: 70px;
+
+            margin-top:37px;
         }
         .rec_name{
             width: 250px;
             font-size: 24px;
+        }
+        .img_like{}
+        .like{
+            position: relative;
+            left:28px;
+            top:-31px;
         }
     </style>
 </head>
 <body>
 <header>
     <nav>
-        <a href="#profile">Профиль</a>
+        <a href="/show/profile{{Auth::id()}}">Профиль</a>
         <a href="#categpory">Категории</a>
         <a href="/show/recipes">Главная</a>
     </nav>
@@ -129,12 +139,16 @@
                     @foreach($photos as $photo)
                         @if($photo->id==$recipe->photo_id)
                             @isset($photo->path)
-                                <img src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                                <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
                             @endisset
                         @endif
                     @endforeach
                     <div class="rec_name">
-                        <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+                        <div>
+                            <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+                        </div>
+                        <div><img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}"></div>
+                        <div class="like">{{$recipe->likes_counter}}</div>
                     </div>
                 </div>
             </div>

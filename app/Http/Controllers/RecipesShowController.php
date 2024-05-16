@@ -12,7 +12,7 @@ class RecipesShowController extends Controller
     public function show()
     {
         $recipes=DB::table('recipes')
-            ->select('id','name','photo_id')
+            ->select('id','name','photo_id','likes_counter')
             ->get();
         $photos = DB::table('photo')
             ->get();

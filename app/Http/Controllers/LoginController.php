@@ -17,7 +17,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('profile');
+            return redirect('/show/profile{{Auth::id()}}');
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

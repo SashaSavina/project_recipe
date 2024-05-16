@@ -12,6 +12,7 @@
         body {
             font-family: algerian, serif;
             font-size: 16px;
+            background: #E8EFF8;
         }
         header {
             display: flex;
@@ -64,45 +65,23 @@
             font-size: 20px;
             font-weight: bold;
         }
-        .wrapper {
-            display: flex;
-            width:850px;
-            height:200px;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        .first {
-            width: 49%;
-            height: 140px;
-            order: 1;
-        }
-        .second {
-            width: 49%;
-            height: 140px;
-            order: 2;
-        }
-        .third {
-            width: 49%;
-            height: 45px;
-            order: 3;
-        }
-        .fourth {
-            width: 49%;
-            height: 45px;
-            order: 4;
-        }
         .input {
-            width: 95%;
-            height: 95%;
+            display: block;
+            width: 85%;
+            height: 30px;
+            margin: 10px;
+            padding: 8px 20px;
+            text-align: center;
+            border-radius: 15px;
+            background-color: #BDCDDD;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 0;
+            font-family: algerian, serif;
+            font-size: 14px;
         }
         .steps{
             width: 95.5%;
             height:200px;
-        }
-        .time{
-            width: 46.5%;
-            height:20px;
-            margin-bottom: 10px;
         }
         li {
             list-style-type: none;
@@ -118,11 +97,15 @@
             transform: translate(-50%, -50%);
         }
         .reg{
-            margin: 30px 35%;
+            left:175px;
+            top:30px;
             font-size: 20px;
             position: relative;
         }
         .btn {
+            left:65px;
+            top:100px;
+            position: relative;
             display: block;
             width: 73%;
             padding: 8px;
@@ -135,21 +118,25 @@
             font-size: 16px;
         }
         img{
-            height: 130px;
-            width: 130px;
+            height: 180px;
+            width: 180px;
+            border-radius: 15px;
+            position: relative;
+            top:40px;
+            left:210px;
+            object-fit: cover;
         }
         .input-file span {
             position: relative;
-            bottom: 107px;
-            left: 20px;
+            top: 80px;
+            left: 48px;
             border: 1px solid #BDCDDD;
             font-size: 14px;
             vertical-align: middle;
-            color: rgb(255 255 255);
             text-align: center;
-            border-radius: 4px;
+            border-radius: 15px;
             background-color: #BDCDDD;
-            height: 40px;
+            height: 25px;
             padding: 10px 20px;
             box-sizing: border-box;
             margin: 0;
@@ -165,6 +152,23 @@
         }
         .input-file:hover span {
             background-color: #A6CAF0;
+        }
+        .container{
+            background-color: #ffffff;
+            border-radius: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 70px 300px;
+            padding-bottom: 30px;
+            height: 620px;
+        }
+        .text{
+            position: relative;
+            top: 100px;
+            left: 150px;
+        }
+        .password{
+            text-decoration-color:white;
         }
     </style>
 </head>
@@ -183,58 +187,43 @@
         <a>Логотип сайта</a>
     </div>
 </header>
-
-<div>
-        @foreach($recipes as $recipe)
-        <form enctype="multipart/form-data" class="form" action="/edit/recipe{{$recipe->id}}" method="POST">
-        @csrf
-        @method('PUT')
-            <div class="reg">Отредактируйте ваш рецепт:</div>
-        <ul>
-            @foreach($errors->all() as $message)
-                <li>{{$message}}</li>
-            @endforeach
-        </ul>
-        <div class="wrapper">
-            <div class="first">
+<div class="container">
+    @foreach($users as $user)
+        <form enctype="multipart/form-data" action="/edit/profile{{$user->id}}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="reg">Отредактируйте ваш профиль:</div>
+            <ul>
+                @foreach($errors->all() as $message)
+                    <li>{{$message}}</li>
+                @endforeach
+            </ul>
+            <div >
                 <label class="input-file">
-                    <input type="file" name="recipe_photo">
-                    @foreach($photos as $photo)
-                        @if($photo->id==$recipe->photo_id)
-                            @isset($photo->path)
-                                <img src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
-                            @endisset
-                        @endif
-                    @endforeach
+                    <input type="file" name="photo">
+                        @isset($user->photo)
+                            <img src="{{ asset('storage/' . $user->photo) }}" alt="{{$user->name}}">
+                        @endisset
                     <span>Выберите файл</span>
                 </label>
             </div>
-            <div class="second">
-                <textarea name="ingredients" class="input">{{$recipe->ingredients}}</textarea>
+            <div class="text">
+                <textarea name="name" class="input" placeholder="Редактировать название">{{$user->name}}</textarea>
+                <textarea name='email' class="input">{{$user->email}}</textarea>
+                <textarea name='phone_number' class="input">{{$user->phone_number}}</textarea>
+                <input name="password" class="input" type="password" placeholder="Пароль">
+                <input name="password_confirmation" class="input" type="password" placeholder="Пароль еще раз">
             </div>
-            <div class="third">
-                <textarea name="name" class="input" placeholder="Редактировать название">{{$recipe->name}}</textarea>
-            </div>
-            <div class="fourth">
-                <select name="subcategory" class="input" >
-                    <option>Изменить категории</option>
-                    @foreach($subcategories as $subcategory)
-                        <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div>
-            <div>
-                <input name="cooking_time" class="time" type="time" placeholder="Изменить время приготовления" value="{{ $recipe->cooking_time }}">
-            </div>
-            <div>
-                <textarea name="cooking_steps" class="steps" placeholder="Редактировать шаги приготовления">{{$recipe->cooking_steps}}</textarea>
-            </div>
-        </div>
-        <button class="btn" type="submit">Сохранить</button>
-        @endforeach
-    </form>
+            <button class="btn" type="submit">Сохранить</button>
+            @endforeach
+        </form>
 </div>
 </body>
 </html>
+
+
+
+
+
+
+

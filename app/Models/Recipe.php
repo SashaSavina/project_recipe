@@ -11,6 +11,7 @@ class Recipe extends Model
 
     protected $fillable=[ 'name', 'ingredients', 'cooking_steps',];
 
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

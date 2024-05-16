@@ -4,8 +4,203 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel</title>
+    <style>
+        html {
+            overflow: scroll;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: algerian, serif;
+            font-size: 16px;
+            background: #E8EFF8;
+        }
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding: 20px 10px;
+        }
+        header a {
+            color: #212121;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 4px;
+        }
+        nav, .wrap-logo {
+            display: flex;
+            align-items: center;
+        }
+        .form_search {
+            position: relative;
+            width: 500px;
+            margin: 0 auto;
+        }
+        input, button, select {
+            border: 1px solid #BDCDDD;
+            background-color: #ffffff;
+        }
+        .search {
+            border-radius: 15px;
+            margin-top: 9px;
+            width: 100%;
+            height: 30px;
+            padding-left: 15px;
+        }
+        .but_search {
+            height: 26px;
+            width: 26px;
+            position: absolute;
+            top: 11px;
+            right: 3px;
+            border-radius: 15px;
+            background: #BDCDDD;
+            cursor: pointer;
+            content: "!";
+        }
+        .but_search:before {
+            color: #BDCDDD;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .input {
+            width: 95%;
+            height: 95%;
+        }
+        img{
+            width: 265px;
+            height: 265px;
+            border-radius: 15px;
+            position: relative;
+            left:300px;
+            top:30px;
+            object-fit: cover;
+        }
+        .btn {
+            display: block;
+            width: 73%;
+            padding: 8px;
+            margin: 30px 115px 50px;
+            border-radius: 15px;
+            background-color: #F7F0C6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 0;
+            font-family: algerian, serif;
+            font-size: 16px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 70px 180px;
+            padding-bottom: 30px;
+        }
+        .headline{
+            font-size: 22px;
+        }
+        td{
+            padding: 10px;
+        }
+        .edit{
+            border: 1px solid #BDCDDD;
+            border-radius: 15px;
+            padding: 0 3px 0 7px ;
+            margin-top: -29%;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .td_text{
+            position: relative;
+            text-align: center;
+            left:47%;
+            right: 47%;
+            margin-bottom: 10px;
+        }
+        .rec_name{
+            font-size: 22px;
+        }
+        .empty{
+            margin-left: -20%;
+        }
+        .img_like,.btn_like{
+            width: 24px;
+            height: 24px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            position: relative;
+            left: 380px;
+            top:-122px
+        }
+        .img_like:hover {
+            background-color: #BDCDDD;
+        }
+    </style>
 </head>
 <body>
-<h1>This is you profile</h1>
+<header>
+    <nav>
+        <a href="/show/profile{{Auth::id()}}">Профиль</a>
+        <a href="#categpory">Категории</a>
+        <a href="/show/recipes">Главная</a>
+    </nav>
+    <form action="" method="" class="form_search">
+        <input class="search" name="search" placeholder="Поиск..." type="search">
+        <button class="but_search" type="submit"></button>
+    </form>
+    <div class="wrap-logo">
+        <a>Логотип сайта</a>
+    </div>
+</header>
+<div class="container">
+    @foreach($users as $user)
+    <table>
+            <tr>
+                <td colspan="3">
+                    @isset($user->photo)
+                        <img src="{{ asset('storage/' . $user->photo) }}" alt="{{$user->name}}">
+                    @endisset
+                    <div>
+                        <form action="{{ route('profile.update', Auth::id()) }}">
+                            <button type="submit" class="btn_like">
+                                <img class="img_like" src="{{ asset('storage/uploads/yfcnhjqrb.png')}}">
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="td_text">
+                        <p class="headline">{{$user->name}}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="td_text">
+                <td>
+                    <div>
+                        <a href="">Мои рецепты</a>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <a href="">Сохраненные рецепты</a>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <a href="/add/recipe">Добавить новый рецепт</a>
+                    </div>
+                </td>
+            </tr>
+    </table>
+    @endforeach
+</div>
 </body>
 </html>
+

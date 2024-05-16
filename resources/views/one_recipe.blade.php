@@ -106,7 +106,7 @@
             border: 1px solid #BDCDDD;
             border-radius: 15px;
             padding: 0 3px 0 7px ;
-            margin-top: -29%;
+            margin-top: -15%;
             margin-bottom: 5px;
             text-align: center;
         }
@@ -118,12 +118,24 @@
         .empty{
             margin-left: -20%;
         }
+        .img_like,.btn_like{
+            width: 24px;
+            height: 24px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            position: relative;
+            left: -3px;
+        }
+        .img_like:hover {
+            background-color: #BDCDDD;
+        }
     </style>
 </head>
 <body>
 <header>
     <nav>
-        <a href="#profile">Профиль</a>
+        <a href="/show/profile{{Auth::id()}}">Профиль</a>
         <a href="#categpory">Категории</a>
         <a href="/show/recipes">Главная</a>
     </nav>
@@ -177,7 +189,20 @@
                     </div>
                 </td>
             </tr>
-            <tr><td class="rec_name" colspan="3">{{$recipe->name}}</td></tr>
+            <tr>
+                <td class="rec_name" colspan="3">
+                    {{$recipe->name}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <form>
+                        <button type="submit" class="btn_like" action="{{ route('recipes.like', $recipe->id)}}">
+                            <img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}">
+                        </button>
+                    </form>
+                </td>
+            </tr>
             <tr>
                 <td></td>
             </tr>
