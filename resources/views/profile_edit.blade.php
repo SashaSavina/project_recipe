@@ -14,56 +14,18 @@
             font-size: 16px;
             background: #E8EFF8;
         }
-        header {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            background-color: #ffffff;
-            padding: 20px 10px;
-        }
-        header a {
-            color: #212121;
-            padding: 12px;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 4px;
-        }
         nav, .wrap-logo{
             display: flex;
-            align-items: center;
+        }
+        nav{
+            left:-220px;
+            top:-40px;
+            position: relative;
         }
         .form_search {
             position: relative;
             width: 500px;
             margin: 0 auto;
-        }
-        input, button, select,textarea {
-            border: 1px solid #BDCDDD;
-            background-color: #ffffff;
-        }
-        .search {
-            border-radius: 15px;
-            margin-top: 9px;
-            width: 100%;
-            height: 30px;
-            padding-left: 15px;
-        }
-        .but_search {
-            height: 26px;
-            width: 26px;
-            position: absolute;
-            top: 11px;
-            right: 3px;
-            border-radius: 15px;
-            background: #BDCDDD;
-            cursor: pointer;
-            content: "!";
-        }
-        .but_search:before {
-            color: #BDCDDD;
-            font-size: 20px;
-            font-weight: bold;
         }
         .input {
             display: block;
@@ -158,8 +120,9 @@
             border-radius: 15px;
             display: flex;
             flex-wrap: wrap;
-            margin: 70px 300px;
+            margin: 70px 350px;
             padding-bottom: 30px;
+            padding-left: 75px;
             height: 620px;
         }
         .text{
@@ -170,23 +133,21 @@
         .password{
             text-decoration-color:white;
         }
+         .img_header{
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 0px;
+        }
+        .img_header:hover {
+            background-color: #BDCDDD;
+            border-radius: 15px;
+        }
     </style>
 </head>
 <body scroll="no">
-<header>
-    <nav>
-        <a href="/show/profile{{Auth::id()}}">Профиль</a>
-        <a href="#categpory">Категории</a>
-        <a href="/show/recipes">Главная</a>
-    </nav>
-    <form action="" method="" class="form_search">
-        <input class="search" name="search" placeholder="Поиск..." type="search">
-        <button class="but_search" type="submit"></button>
-    </form>
-    <div class="wrap-logo">
-        <a>Логотип сайта</a>
-    </div>
-</header>
 <div class="container">
     @foreach($users as $user)
         <form enctype="multipart/form-data" action="/edit/profile{{$user->id}}" method="POST">

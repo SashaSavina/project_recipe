@@ -15,15 +15,10 @@
             body {
                 font-family: algerian, serif;
                 font-size: 16px;
+                background: #E8EFF8;
             }
             * {
                 box-sizing: border-box;
-            }
-            .form {
-                padding: 50px;
-                background: #ffffff;
-                position: fixed; top: 50%; left: 50%;
-                transform: translate(-50%, -50%);
             }
             .input {
                 display: block;
@@ -53,12 +48,32 @@
                 border: 0;
                 font-family: algerian, serif;
                 font-size: 16px;
+            }  
+            .container {
+                background-color: #ffffff;
+                border-radius: 15px;
+                position: relative;
+                left:610px;
+                top:320px;
+                margin: 70px 100px;
+                padding-bottom: 30px;
+                height: 450px;
+                width:330px ;
+                padding: 50px;
+                transform: translate(-50%, -50%);
+                }
+            .regestr{
+             color: black;
+             position: relative;
+             left: 45px;
+             top:10px;
+            }    
             }
         </style>
     </head>
     <body>
-        <div>
-            <form class="form" action="/authenticate" method="POST">
+        <div class="container">
+            <form action="/authenticate" method="POST">
                 @csrf
                 <div class="reg">Вход</div>
                 <ul>
@@ -69,6 +84,7 @@
                 <input name="name" class="input" type="text" placeholder="Ваше имя">
                 <input name="email" class="input" type="email" placeholder="Ваш e-mail">
                 <input name="password" class="input" type="password" placeholder="Пароль">
+                <div class="regestr"><a href="/registration">Зарегистрироваться</a></div>
                 <button class="btn" type="submit">Войти</button>
             </form>
         </div>

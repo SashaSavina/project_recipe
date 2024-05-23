@@ -12,17 +12,18 @@
             box-sizing: border-box;
         }
         body {
-            font-family: algerian, serif;
+            font-family: Poppins, serif;
             font-size: 16px;
             background: #E8EFF8;
         }
+
         header {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
             background-color: #ffffff;
-            padding: 20px 10px;
+            padding: 10px 10px;
         }
         header a {
             color: #212121;
@@ -44,7 +45,7 @@
             border: 1px solid #BDCDDD;
             background-color: #ffffff;
         }
-      .search {
+        .search {
             border-radius: 15px;
             margin-top: 28px;
             margin-left: 45px;
@@ -62,12 +63,6 @@
             background: #BDCDDD;
             cursor: pointer;
             content: "!";
-        }
-        .img_log{
-            width: 250px;
-            height: 80px;
-            position: relative;
-            top:-4px;
         }
         .but_search:before {
             color: #BDCDDD;
@@ -96,22 +91,6 @@
             font-family: algerian, serif;
             font-size: 16px;
         }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 70px;
-            margin-left: 80px;
-            background-color: #ffffff;
-            margin-right: 80px;
-            border-radius: 15px;
-        }
-        .item {
-            flex-basis: 33%;
-            display: flex;
-            justify-content: center;
-
-            margin-top:37px;
-        }
         .rec_name{
             width: 250px;
             font-size: 24px;
@@ -131,7 +110,63 @@
         }
         .img_header:hover {
             background-color: #BDCDDD;
-             border-radius: 15px;
+            border-radius: 15px;
+        }
+        .list {
+            position: relative;
+            width: 900px;
+            left: 200px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            margin:70px 100px;
+            padding: 25px 30px 25px 45px;
+            min-height: 100vh;
+        }
+        .list ul {
+            position: relative;
+        }
+        .list ul li span {
+          position: relative;
+          z-index: 1;
+          transition: 0.5s;
+        }
+        .list ul li {
+          position: relative;
+          left: 0;
+          color: #BDCDDD;
+          list-style: none;
+          margin: 20px 10px;
+          padding-left: 10px;
+          border-left: 2px solid #BDCDDD;
+          transition: 0.5s;
+          cursor: pointer;
+          font-size: 20px;
+        }
+        .list ul li:hover {
+          left: 10px;
+        }
+        .list ul li:before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #BDCDDD;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: 0.5s;
+}
+        .list ul li:hover:before {
+          transform: scaleX(1);
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        .img_log{
+            width: 250px;
+            height: 80px;
+            position: relative;
+            top:-4px;
         }
     </style>
 </head>
@@ -142,7 +177,7 @@
         <a href="/show/subcaterories"><img class="img_header" src="{{ asset('storage/uploads/icons8-категории-50.png')}}"></a>
         <a href="/show/recipes"><img class="img_header" src="{{ asset('storage/uploads/главная.png')}}"></a>
     </nav>
-    <form action="/show/recipes/search" method="get" class="form_search">
+    <form action="/show/subcaterories/search" method="get" class="form_search">
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
@@ -150,26 +185,20 @@
         <a><img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}"></a>
     </div>
 </header>
-    <div class="container">
-        @foreach($recipes as $recipe)
-            <div class="item">
-                <div class="item-box">
-                    @foreach($photos as $photo)
-                        @if($photo->id==$recipe->photo_id)
-                            @isset($photo->path)
-                                <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
-                            @endisset
-                        @endif
-                    @endforeach
-                    <div class="rec_name">
-                        <div>
-                            <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
-                        </div>
-                        <div><img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}"></div>
-                        <div class="like">{{$recipe->likes_counter}}</div>
-                    </div>
-                </div>
-            </div>
+    <div class="list">
+        @foreach($categories as $category)
+                <h2>{{ $category->name }}</h2>
+                    <ul>
+                        @foreach($subcategories as $subcategory)
+                        <li>
+                            <span>
+                            @if($category->id==$subcategory->categories_id)
+                                <a href="/show/subcaterories{{$subcategory->id}}">{{$subcategory->name }}</a>
+                            @endif  
+                        </span>
+                        </li>    
+                        @endforeach
+                    </ul>
         @endforeach
     </div>
 </body>

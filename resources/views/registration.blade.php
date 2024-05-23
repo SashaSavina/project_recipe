@@ -15,7 +15,7 @@
             body {
                 font-family: algerian, serif;
                 font-size: 16px;
-                background-image: url('/public/storage/photo/background.jpg');
+                background: #E8EFF8;
             }
             * {
                 box-sizing: border-box;
@@ -55,10 +55,22 @@
                 font-family: algerian, serif;
                 font-size: 16px;
             }
+             .container {
+                background-color: #ffffff;
+                border-radius: 15px;
+                position: relative;
+                left:430px;
+                top:40px;
+                margin: 70px 100px;
+                padding-bottom: 30px;
+                height: 550px;
+                width:400px ;
+                padding: 50px;
+                transfo
         </style>
     </head>
     <body>
-    <div>
+    <div class="container">
         <form class="form" action="/registration" method="POST">
             @csrf
             <div class="reg">Регистрация</div>

@@ -22,11 +22,10 @@
             justify-content: space-between;
             flex-wrap: wrap;
             background-color: #ffffff;
-            padding: 20px 10px;
         }
         header a {
             color: #212121;
-            padding: 12px;
+            padding: 15px;
             text-decoration: none;
             font-size: 18px;
             border-radius: 4px;
@@ -44,7 +43,7 @@
             border: 1px solid #BDCDDD;
             background-color: #ffffff;
         }
-      .search {
+        .search {
             border-radius: 15px;
             margin-top: 28px;
             margin-left: 45px;
@@ -67,7 +66,7 @@
             width: 250px;
             height: 80px;
             position: relative;
-            top:-4px;
+            top:0px;
         }
         .but_search:before {
             color: #BDCDDD;
@@ -146,12 +145,13 @@
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
-    <div>
+   <div>
         <a><img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}"></a>
     </div>
 </header>
     <div class="container">
         @foreach($recipes as $recipe)
+         @if($recipe->subcategories_id==$id)
             <div class="item">
                 <div class="item-box">
                     @foreach($photos as $photo)
@@ -170,6 +170,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
 </body>

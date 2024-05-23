@@ -46,7 +46,8 @@
         }
         .search {
             border-radius: 15px;
-            margin-top: 9px;
+            margin-top: 28px;
+            margin-left: 45px;
             width: 100%;
             height: 30px;
             padding-left: 15px;
@@ -55,12 +56,18 @@
             height: 26px;
             width: 26px;
             position: absolute;
-            top: 11px;
-            right: 3px;
+            top: 30px;
+            right: -43px;
             border-radius: 15px;
             background: #BDCDDD;
             cursor: pointer;
             content: "!";
+        }
+        .img_log{
+            width: 250px;
+            height: 80px;
+            position: relative;
+            top:-4px;
         }
         .but_search:before {
             color: #BDCDDD;
@@ -118,33 +125,50 @@
         .empty{
             margin-left: -20%;
         }
-        .img_like,.btn_like{
+        .img_like,.btn_like,.img_like_after{
             width: 24px;
             height: 24px;
             border: none;
-            background-color: transparent;
             cursor: pointer;
             position: relative;
             left: -3px;
         }
-        .img_like:hover {
+       .img_header:hover {
+             border-radius: 15px;
+             background-color: #BDCDDD;
+        }
+        .img_like_after, .img_header{
             background-color: #BDCDDD;
+        }
+         .like{
+            position: relative;
+            left:28px;
+            top:-28px;
+            font-size: 20px;
+        }
+        .img_header{
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 0px;
         }
     </style>
 </head>
 <body>
 <header>
     <nav>
-        <a href="/show/profile{{Auth::id()}}">Профиль</a>
-        <a href="#categpory">Категории</a>
-        <a href="/show/recipes">Главная</a>
+        <a href="{{route('show.profile')}}"><img class="img_header" src="{{ asset('storage/uploads/профиль.png')}}"></a>
+        <a href="/show/subcaterories"><img class="img_header" src="{{ asset('storage/uploads/icons8-категории-50.png')}}"></a>
+        <a href="/show/recipes"><img class="img_header" src="{{ asset('storage/uploads/главная.png')}}"></a>
     </nav>
     <form action="" method="" class="form_search">
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
-    <div class="wrap-logo">
-        <a>Логотип сайта</a>
+    <div>
+        <a><img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}"></a>
     </div>
 </header>
 <div class="container">
@@ -154,8 +178,8 @@
                 <td rowspan="2">
                     @foreach($photos as $photo)
                         @if($photo->id==$recipe->photo_id)
-                            @isset($photo->path)
-                                <img src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                             @isset($photo->path)
+                                <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
                             @endisset
                         @endif
                     @endforeach
@@ -196,11 +220,17 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <form>
-                        <button type="submit" class="btn_like" action="{{ route('recipes.like', $recipe->id)}}">
-                            <img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}">
+                    <form action="{{ route('like.recipe', $recipe->id) }}" method="post">
+                        @csrf
+                         <button type="submit" class="btn_like">
+                            @if ($isLiked)
+                                <img class="img_like_after" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}">
+                            @else
+                                <img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}">
+                            @endif
                         </button>
                     </form>
+                    <div class="like">{{$recipe->likes_counter}}</div>
                 </td>
             </tr>
             <tr>

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'name' => ['required', 'string'],
@@ -17,7 +17,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/show/profile{{Auth::id()}}');
+            return redirect('/show/profile');
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

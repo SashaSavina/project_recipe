@@ -44,7 +44,7 @@
             border: 1px solid #BDCDDD;
             background-color: #ffffff;
         }
-         .search {
+        .search {
             border-radius: 15px;
             margin-top: 28px;
             margin-left: 45px;
@@ -63,6 +63,12 @@
             cursor: pointer;
             content: "!";
         }
+        .img_log{
+            width: 250px;
+            height: 80px;
+            position: relative;
+            top:-4px;
+        }
         .but_search:before {
             color: #BDCDDD;
             font-size: 20px;
@@ -72,21 +78,11 @@
             width: 95%;
             height: 95%;
         }
-        img{
+        .big_img{
             width: 265px;
-            height: 265px;
+            height: 300px;
             border-radius: 15px;
-            position: relative;
-            left:430px;
-            top:30px;
             object-fit: cover;
-        }
-         .img_log{
-            width: 250px;
-            height: 80px;
-            position: relative;
-            top:-4px;
-            left: 0px;
         }
         .btn {
             display: block;
@@ -101,49 +97,32 @@
             font-size: 16px;
         }
         .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 70px;
+            margin-left: 80px;
             background-color: #ffffff;
+            margin-right: 80px;
             border-radius: 15px;
-            margin: 10% 10%;
-            padding-bottom: 2%;
         }
-        .headline{
-            font-size: 22px;
+        .item {
+            flex-basis: 33%;
+            display: flex;
+            justify-content: center;
+
+            margin-top:37px;
         }
-        .td_text{
+        .rec_name{
+            width: 250px;
+            font-size: 24px;
+        }
+        .img_like{}
+        .like{
             position: relative;
-            text-align: center;
-            left:73%;
-            margin-bottom: 10px;
-            padding-left: 30px;
+            left:28px;
+            top:-31px;
         }
-        .img_like,.btn_like{
-            width: 24px;
-            height: 24px;
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            position: relative;
-            right: -650px;
-            top:-122px
-        }
-        .img_like, .img_header:hover {
-            background-color: #BDCDDD;
-        }
-        a{
-            padding-left: 0%;
-            text-decoration: none;
-            color: black;
-            border-bottom: 1px solid; 
-        }
-        td{
-            width: 150px;
-        }
-        .name{
-            position: relative;
-            text-align: center;
-            left:74%;
-        }
-         .img_header{
+        .img_header{
             width: 30px;
             height: 30px;
             border: none;
@@ -153,18 +132,7 @@
         }
         .img_header:hover {
             background-color: #BDCDDD;
-            border-radius: 15px;
-        }
-        nav{
-              position: relative;
-            left:-430px;
-            top:-30px;
-        }
-        .entr{
-          position: relative;
-            left:995px;
-            top:25px;
-            margin-bottom: 20px;
+             border-radius: 15px;
         }
     </style>
 </head>
@@ -175,67 +143,38 @@
         <a href="/show/subcaterories"><img class="img_header" src="{{ asset('storage/uploads/icons8-категории-50.png')}}"></a>
         <a href="/show/recipes"><img class="img_header" src="{{ asset('storage/uploads/главная.png')}}"></a>
     </nav>
-    <form action="" method="" class="form_search">
+    <form action="/show/recipes/search" method="get" class="form_search">
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
-    <div>
-        <img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}">
+     <div>
+        <a><img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}"></a>
     </div>
 </header>
-<div class="container">
-    @foreach($users as $user)
-    <div class="item">
-    <table>
-            <tr>
-                <td colspan="3">
-                    @isset($user->photo)
-                        <img src="{{ asset('storage/' . $user->photo) }}" alt="{{$user->name}}">
-                    @endisset
-                    <div>
-                        <form action="{{ route('profile.update', Auth::id()) }}">
-                            <button type="submit" class="btn_like">
-                                <img class="img_like" src="{{ asset('storage/uploads/yfcnhjqrb.png')}}">
-                            </button>
-                        </form>
+    <div class="container">
+        @foreach($recipes as $recipe)
+        @if($recipe->users_id==Auth::id())
+                <div class="item">
+                    <div class="item-box">
+                        @foreach($photos as $photo)
+                            @if($photo->id==$recipe->photo_id)
+                                @isset($photo->path)
+                                    <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                                @endisset
+                            @endif
+                        @endforeach
+                        <div class="rec_name">
+                            <div>
+                                <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+                            </div>
+                            <div><img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}"></div>
+                            <div class="like">{{$recipe->likes_counter}}</div>
+                        </div>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div class="name">
-                        <p class="headline">{{$user->name}}</p>
-                    </div>
-                </td>
-            </tr>
-            <tr class="td_text">
-                <td>
-                <div>
-                        <a href="/show/saverecipes">Сохраненные рецепты</a>
                 </div>
-                </td>
-                <td>
-                    <div>
-                        <a href="/show/myrecipes">Мои рецепты</a>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <a href="/add/recipe">Добавить новый рецепт</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div class="entr">
-                        <a href="/authenticate">Выйти из профиля</a>
-                    </div>
-                </td>
-            </tr>
-    </table>
-</div>
-    @endforeach
-</div>
+                @endif
+        @endforeach
+    </div>
 </body>
 </html>
 

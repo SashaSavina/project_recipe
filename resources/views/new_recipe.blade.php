@@ -164,20 +164,6 @@
     </style>
 </head>
 <body scroll="no">
-<header>
-    <nav>
-        <a href="#profile">Профиль</a>
-        <a href="#categpory">Категории</a>
-        <a href="/show/recipes">Главная</a>
-    </nav>
-    <form action="" method="" class="form_search">
-        <input class="search" name="search" placeholder="Поиск..." type="search">
-        <button class="but_search" type="submit"></button>
-    </form>
-    <div class="wrap-logo">
-        <a>Логотип сайта</a>
-    </div>
-</header>
 
 <div>
     <form enctype="multipart/form-data" class="form" action="/add/recipe" method="POST">

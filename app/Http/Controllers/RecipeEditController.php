@@ -47,13 +47,38 @@ class RecipeEditController extends Controller
             ->get();
         $subcategories = DB::table('subcategories')
             ->get();
-        return view('one_recipe', compact('recipes','photos','subcategories'));
+
+        return redirect('/show/recipes');
     }
-    public function like(string $id)
-    {
-        DB::table('recipes')->increment('likes_counter', 1, ['id' => $id]);
-        return redirect('show.recipes');
+
+    public function like(Request $request, string $id)
+{
+    $userId = auth()->id();
+    
+    $existingLike = DB::table('recipes_saved_by_user')
+        ->where('recipes_id', $id)
+        ->where('users_id', $userId)
+        ->first();
+    
+    if ($existingLike) {
+        DB::table('recipes_saved_by_user')
+            ->where('recipes_id', $id)
+            ->where('users_id', $userId)
+            ->delete();
+       DB::table('recipes')->where('id', $id)->decrement('likes_counter');
+    } else {
+        DB::table('recipes_saved_by_user')->insert([
+            'recipes_id' => $id,
+            'users_id' => $userId,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('recipes')->where('id', $id)->increment('likes_counter');
     }
+
+    return redirect()->back();
+}
+
 
     public function isLikedByUser($user)
     {

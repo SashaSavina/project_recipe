@@ -10,13 +10,17 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        $users=DB::table('users')
+        if (Auth::check()) {
+    $users=DB::table('users')
             ->where('id',Auth::user()->id)
             ->get();
         $recipe = DB::table('recipes')
             ->get();
         return view('profile', compact('users','recipe'));
+    } else {
+      return view('entrance');
     }
+}
 
     public function index(string $id)
     {
@@ -46,6 +50,6 @@ class ProfileController extends Controller
             ->get();
         $recipe = DB::table('recipes')
             ->get();
-        return redirect('/show/profile{{Auth::id()}}');
+       return redirect('/show/profile');
     }
 }

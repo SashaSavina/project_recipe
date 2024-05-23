@@ -18,8 +18,14 @@ class RecipeShowController extends Controller
             ->get();
         $subcategories = DB::table('subcategories')
             ->get();
+       $userId = auth()->id();
+       $Count_like=DB::table('recipes_saved_by_user');
+       $isLiked = DB::table('recipes_saved_by_user')
+        ->where('recipes_id', $id)
+        ->where('users_id', $userId)
+        ->exists();
 
-        return view('one_recipe', compact('recipes','photos','subcategories'));
+        return view('one_recipe', compact('recipes','photos','subcategories','isLiked'));
     }
 
 

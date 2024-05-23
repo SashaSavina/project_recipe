@@ -16,7 +16,7 @@
             font-size: 16px;
             background: #E8EFF8;
         }
-        header {
+       header {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -44,7 +44,7 @@
             border: 1px solid #BDCDDD;
             background-color: #ffffff;
         }
-      .search {
+        .search {
             border-radius: 15px;
             margin-top: 28px;
             margin-left: 45px;
@@ -138,38 +138,40 @@
 <body>
 <header>
     <nav>
-        <a href="{{route('show.profile')}}"><img class="img_header" src="{{ asset('storage/uploads/профиль.png')}}"></a>
+         <a href="{{route('show.profile')}}"><img class="img_header" src="{{ asset('storage/uploads/профиль.png')}}"></a>
         <a href="/show/subcaterories"><img class="img_header" src="{{ asset('storage/uploads/icons8-категории-50.png')}}"></a>
         <a href="/show/recipes"><img class="img_header" src="{{ asset('storage/uploads/главная.png')}}"></a>
     </nav>
-    <form action="/show/recipes/search" method="get" class="form_search">
+    <form action="" method="" class="form_search">
         <input class="search" name="search" placeholder="Поиск..." type="search">
         <button class="but_search" type="submit"></button>
     </form>
-    <div>
+   <div>
         <a><img class="img_log" src="{{ asset('storage/uploads/Desktop - 4.png')}}"></a>
     </div>
 </header>
     <div class="container">
         @foreach($recipes as $recipe)
-            <div class="item">
-                <div class="item-box">
-                    @foreach($photos as $photo)
-                        @if($photo->id==$recipe->photo_id)
-                            @isset($photo->path)
-                                <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
-                            @endisset
-                        @endif
-                    @endforeach
-                    <div class="rec_name">
-                        <div>
-                            <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+            @if($recipe->users_id==Auth::id())
+                <div class="item">
+                    <div class="item-box">
+                        @foreach($photos as $photo)
+                            @if($photo->id==$recipe->photo_id)
+                                @isset($photo->path)
+                                    <img class="big_img" src="{{ asset('storage/' . $photo->path) }}" alt="recipe{{$recipe->name}}">
+                                @endisset
+                            @endif
+                        @endforeach
+                        <div class="rec_name">
+                            <div>
+                                <a href="/show/recipe{{$recipe->id}}">{{ $recipe->name }}</a>
+                            </div>
+                            <div><img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}"></div>
+                            <div class="like">{{$recipe->likes_counter}}</div>
                         </div>
-                        <div><img class="img_like" src="{{ asset('storage/uploads/icons8-сердце-24.png')}}"></div>
-                        <div class="like">{{$recipe->likes_counter}}</div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endforeach
     </div>
 </body>
